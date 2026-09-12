@@ -7,6 +7,7 @@ from fastapi.staticfiles import StaticFiles
 from .database import engine, Base
 from .utils.file_utils import ensure_directories, STORAGE_DIR
 from .api import (
+    auth,
     cases,
     evidence,
     integrity,
@@ -56,6 +57,7 @@ if os.path.exists(STORAGE_DIR):
     app.mount("/storage", StaticFiles(directory=STORAGE_DIR), name="storage")
 
 # Register API Routers
+app.include_router(auth.router)
 app.include_router(cases.router)
 app.include_router(evidence.router)
 app.include_router(integrity.router)

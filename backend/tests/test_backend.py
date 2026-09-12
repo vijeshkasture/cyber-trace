@@ -246,3 +246,45 @@ def test_end_to_end_analysis_and_report():
     assert res_down.status_code == 200
     assert res_down.headers["content-type"] == "application/pdf"
     assert len(res_down.content) > 1000
+
+
+def test_officer_auth_flow():
+    """Verifies officer registration, login, and protected user fetch."""
+    register = client.post("/auth/register", json={
+        "full_name": "Rahul Sharma",
+        "officer_id": "OFF-1001",
+        "email": "rahul.sharma@cybertrace.local",
+        "department": "Cyber Crime Cell",
+        "password": "StrongPass123!",
+        "confirm_password": "StrongPass123!"
+    })
+    assert register.status_code == 201
+    payload = register.json()
+    assert payload["officer_id"] == "OFF-1001"
+    assert "password_hash" not in payload
+
+    login = client.post("/auth/login", json={
+        "officer_id": "OFF-1001",
+        "password": "StrongPass123!"
+    })
+    assert login.status_code == 200
+    auth = login.json()
+    assert auth["token_type"] == "bearer"
+    assert "access_token" in auth
+
+    me = client.get("/auth/me", headers={"Authorization": f"Bearer {auth['access_token']}"})
+    assert me.status_code == 200
+    assert me.json()["full_name"] == "Rahul Sharma"
+    assert me.json()["department"] == "Cyber Crime Cell"
+
+
+def test_demo_officer_login_creates_account():
+    """Verifies the demo officer is available immediately for quick access testing."""
+    login = client.post("/auth/login", json={
+        "officer_id": "user123",
+        "password": "userpass123"
+    })
+    assert login.status_code == 200
+    data = login.json()
+    assert data["token_type"] == "bearer"
+    assert "access_token" in data

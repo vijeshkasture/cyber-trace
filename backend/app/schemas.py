@@ -1,6 +1,55 @@
 from datetime import datetime
 from typing import List, Optional, Any
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, field_validator
+
+
+class OfficerRegister(BaseModel):
+    full_name: str
+    officer_id: str
+    email: str
+    department: str
+    password: str
+    confirm_password: str
+
+    @field_validator("full_name", "officer_id", "department")
+    @classmethod
+    def validate_required_text(cls, value: str):
+        if not value or not value.strip():
+            raise ValueError("This field is required")
+        return value.strip()
+
+    @field_validator("password")
+    @classmethod
+    def validate_password(cls, value: str):
+        if len(value) < 8:
+            raise ValueError("Password must be at least 8 characters long")
+        return value
+
+    @field_validator("officer_id")
+    @classmethod
+    def normalize_officer_id(cls, value: str):
+        return value.strip()
+
+
+class OfficerLogin(BaseModel):
+    officer_id: str
+    password: str
+
+
+class OfficerResponse(BaseModel):
+    id: int
+    officer_id: str
+    full_name: str
+    email: str
+    department: str
+    is_active: str
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
 
 
 # Case Schemas

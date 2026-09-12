@@ -7,9 +7,11 @@ import {
   Play,
   ChevronDown,
   Loader2,
-  UserCheck
+  UserCheck,
+  LogOut
 } from 'lucide-react';
 import { useInvestigation } from '../../context/InvestigationContext';
+import { useAuth } from '../../context/AuthContext';
 import UploadModal from '../modals/UploadModal';
 import AnalysisModal from '../modals/AnalysisModal';
 
@@ -27,6 +29,7 @@ export default function Header() {
     analysisResult,
     triggerRefresh
   } = useInvestigation();
+  const { user, logout } = useAuth();
 
   const [isUploadOpen, setIsUploadOpen] = useState(false);
   const [isAnalysisModalOpen, setIsAnalysisModalOpen] = useState(false);
@@ -163,9 +166,21 @@ export default function Header() {
               <UserCheck className="w-3.5 h-3.5" />
             </div>
             <div className="hidden xl:block text-left">
-              <div className="text-[11px] font-bold text-white leading-none">Duty officer</div>
-              <div className="text-[10px] text-slate-300 leading-none mt-0.5">Cyber Crime Cell</div>
+              <div className="text-[11px] font-bold text-white leading-none">{user?.full_name || 'Officer'}</div>
+              <div className="text-[10px] text-slate-300 leading-none mt-0.5">{user?.department || 'Investigation Unit'}</div>
             </div>
+            <button
+              type="button"
+              onClick={() => {
+                logout();
+                navigate('/');
+              }}
+              className="ml-1 inline-flex items-center gap-1 rounded border border-white/20 bg-white/5 px-2 py-1 text-[10px] font-medium text-slate-200 transition hover:bg-white/10"
+              title="Log out"
+            >
+              <LogOut className="h-3 w-3" />
+              <span className="hidden lg:inline">Logout</span>
+            </button>
           </div>
         </div>
       </header>

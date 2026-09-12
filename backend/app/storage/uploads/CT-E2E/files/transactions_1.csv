@@ -1,0 +1,4 @@
+transaction_id,source_account,target_account,amount,timestamp,channel
+TX1,VictimAcct,MuleHub99,25000.0,2024-02-14 09:12:00,UPI
+TX2,MuleHub99,MuleCashout44,22000.0,2024-02-14 09:13:20,UPI
+TX3,MuleCashout44,ATM-WDL,20000.0,2024-02-14 09:16:00,ATM

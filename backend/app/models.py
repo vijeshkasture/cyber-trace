@@ -6,6 +6,19 @@ from sqlalchemy.orm import relationship
 from .database import Base
 
 
+class Officer(Base):
+    __tablename__ = "officers"
+
+    id = Column(Integer, primary_key=True, index=True)
+    officer_id = Column(String(100), unique=True, index=True, nullable=False)
+    full_name = Column(String(255), nullable=False)
+    email = Column(String(255), unique=True, index=True, nullable=False)
+    department = Column(String(255), nullable=False)
+    password_hash = Column(String(255), nullable=False)
+    is_active = Column(String(20), default="ACTIVE")
+    created_at = Column(DateTime, default=lambda: datetime.datetime.now(datetime.timezone.utc))
+
+
 class Case(Base):
     __tablename__ = "cases"
 
