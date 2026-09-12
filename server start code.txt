@@ -1,0 +1,2 @@
+cd V:\cyber
+.\start_all.ps1
