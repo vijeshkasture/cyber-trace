@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color: #0f172a;
+    background-color: #f8fafc;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-police-bg text-police-text text-[13px] font-sans;
+    font-feature-settings: 'ss01' 1, 'cv11' 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    color: #0f172a;
+  }
+
+  .font-mono {
+    font-family: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace !important;
+  }
+
+  /* Custom scrollbar for high-density tables and logs */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f1f5f9;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+}
+
+/* React Flow Light Theme Adjustments */
+.react-flow__background {
+  background-color: #f8fafc !important;
+}
+
+.react-flow__controls {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 6px !important;
+  overflow: hidden;
+}
+
+.react-flow__controls-button {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  color: #475569 !important;
+}
+
+.react-flow__controls-button:hover {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+.react-flow__edge-path {
+  stroke: #64748b !important;
+  stroke-width: 1.5 !important;
+}
+
+.react-flow__edge-text {
+  font-family: 'IBM Plex Mono', monospace !important;
+  font-size: 11px !important;
+  fill: #1e293b !important;
+}
+
+.react-flow__edge-textbg {
+  fill: #ffffff !important;
+  stroke: #cbd5e1 !important;
+  stroke-width: 1px !important;
+  rx: 3px !important;
+  ry: 3px !important;
+}
